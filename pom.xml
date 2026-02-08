@@ -38,7 +38,7 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Lombok（简化实体类，可选但推荐） -->
+        <!-- Lombok（简化实体类） -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

@@ -14,7 +14,7 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * 接口1：分页查询用户列表（无排序）
+     * 接口1：分页查询用户列表
      * 请求示例：GET /users?pageNum=0&pageSize=10
      */
     @GetMapping
