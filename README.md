@@ -15,3 +15,12 @@ pageNum 表示当前请求的页码，pageSize 表示每页返回的记录条数
 ## 根据id单条查询指定部门
 **http://localhost:8080/depts/4**
 同上
+
+## 对用户年度分数表进行列表分页查询
+**http://localhost:8080/userYearScores?pageNum=0&pageSize=3**
+上
+
+## 根据id单条查询指定用户年度分数
+**http://localhost:8080/userYearScores/4**
+上
+
