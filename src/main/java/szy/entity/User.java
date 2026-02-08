@@ -19,6 +19,5 @@ public class User {
     private String name; // 用户名
 
     @Column(name = "dept_id")
-    private Integer deptId; // 用户名
-
+    private Integer deptId; // 部门ID
 }
