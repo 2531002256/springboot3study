@@ -26,6 +26,7 @@ public class UserService {
      * 根据ID查询单个用户
      */
     public Optional<User> getUserById(Integer userId) {
+
         return userRepository.findById(userId);
     }
 }
