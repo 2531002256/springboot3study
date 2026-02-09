@@ -29,3 +29,7 @@ pageNum 表示当前请求的页码，pageSize 表示每页返回的记录条数
 查询指定年份的各部门总分数
 
 
+## 根据指定的部门id、开始年份、结束年份, 统计历年的总分数
+**http://localhost:8080/userYearScores/statistics/dept/yearly?deptId=1&startYear=2000&endYear=2008**
+能自动处理没有数据的中间年份,会返回0
+
