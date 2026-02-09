@@ -3,8 +3,10 @@ package szy.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import szy.common.Result;
 import szy.dto.DeptTotalScoreDTO;
+import szy.dto.ImportResultDTO;
 import szy.dto.YearScoreDTO;
 import szy.entity.UserYearScore;
 import szy.service.UserYearScoreService;
@@ -71,6 +73,26 @@ public class UserYearScoreController {
         } catch (Exception e) {
             // 通用异常，返回兜底提示
             return Result.error("统计部门历年总分失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * Excel上传导入用户年度分数
+     * 请求示例：POST /userYearScores/import （form-data格式，key=file，value=Excel文件）
+     * @param file 上传的Excel文件
+     * @return 导入结果
+     */
+    @PostMapping("/import")
+    public Result<ImportResultDTO> importUserYearScore(@RequestParam("file") MultipartFile file) {
+        try {
+            ImportResultDTO result = userYearScoreService.importUserYearScore(file);
+            return Result.success(result);
+        } catch (IllegalArgumentException e) {
+            // 参数/文件校验异常
+            return Result.error(e.getMessage());
+        } catch (Exception e) {
+            // 通用异常
+            return Result.error("Excel导入失败：" + e.getMessage());
         }
     }
 

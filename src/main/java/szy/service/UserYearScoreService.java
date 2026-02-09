@@ -1,23 +1,32 @@
 package szy.service;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.read.listener.PageReadListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import szy.dto.DeptTotalScoreDTO;
+import szy.dto.ImportResultDTO;
+import szy.dto.UserYearScoreExcelDTO;
 import szy.dto.YearScoreDTO;
 import szy.entity.User;
 import szy.entity.UserYearScore;
+import szy.repository.UserRepository;
 import szy.repository.UserYearScoreRepository;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
 public class UserYearScoreService {
     private final UserYearScoreRepository userYearScoreRepository;
+    private final UserRepository userRepository;
 
     // 分页查询
     public Page<UserYearScore> getUserYearScorePage(Integer pageNum, Integer pageSize) {
@@ -93,4 +102,98 @@ public class UserYearScoreService {
 
         return result;
     }
+
+    /**
+     * Excel导入用户年度分数（核心方法）
+     * @param file 上传的Excel文件
+     * @return 导入结果（成功/失败条数、失败原因）
+     */
+    public ImportResultDTO importUserYearScore(MultipartFile file) {
+        // 1. 校验文件
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("上传的Excel文件不能为空");
+        }
+        String fileName = file.getOriginalFilename();
+        if (fileName == null || (!fileName.endsWith(".xlsx") && !fileName.endsWith(".xls"))) {
+            throw new IllegalArgumentException("仅支持.xlsx/.xls格式的Excel文件");
+        }
+
+        // 2. 定义变量存储导入结果
+        AtomicInteger successCount = new AtomicInteger(0); // 成功条数（原子类保证线程安全）
+        List<String> failReasons = new ArrayList<>(); // 失败原因（行号+原因）
+        AtomicInteger rowNum = new AtomicInteger(1); // Excel行号（从1开始，表头行）
+
+        try {
+            // 3. EasyExcel解析Excel（PageReadListener：分页读取，避免内存溢出）
+            EasyExcel.read(file.getInputStream(), UserYearScoreExcelDTO.class, new PageReadListener<UserYearScoreExcelDTO>(dataList -> {
+                for (UserYearScoreExcelDTO dto : dataList) {
+                    rowNum.incrementAndGet(); // 行号+1（跳过表头，从数据行开始）
+                    try {
+                        // 4. 单条数据校验
+                        validateExcelData(dto, rowNum.get(), failReasons);
+                        // 5. 关联用户：根据账号查userId
+                        Optional<User> userOptional = userRepository.findByAccount(dto.getAccount());
+                        if (userOptional.isEmpty()) {
+                            failReasons.add("第" + rowNum.get() + "行：用户账号[" + dto.getAccount() + "]不存在");
+                            continue;
+                        }
+                        Integer userId = userOptional.get().getUserId();
+
+                        // 6. 校验重复：同一用户+年度不能重复
+                        Optional<UserYearScore> existScore = userYearScoreRepository.findByUserIdAndYear(userId, dto.getYear());
+                        if (existScore.isPresent()) {
+                            failReasons.add("第" + rowNum.get() + "行：用户账号[" + dto.getAccount() + "]" + dto.getYear() + "年度数据已存在，无法重复导入");
+                            continue;
+                        }
+
+                        // 7. 封装数据并保存
+                        UserYearScore score = new UserYearScore();
+                        score.setUserId(userId);
+                        score.setYear(dto.getYear());
+                        score.setScore(dto.getScore());
+                        userYearScoreRepository.save(score);
+
+                        successCount.incrementAndGet(); // 成功条数+1
+                    } catch (Exception e) {
+                        failReasons.add("第" + rowNum.get() + "行：导入失败，原因：" + e.getMessage());
+                    }
+                }
+            })).sheet().doRead(); // 读取第一个sheet
+
+            // 8. 封装导入结果
+            return new ImportResultDTO(
+                    successCount.get(),
+                    failReasons.size(),
+                    failReasons
+            );
+        } catch (IOException e) {
+            throw new RuntimeException("解析Excel文件失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 校验Excel单条数据合法性
+     * @param dto Excel解析的DTO
+     * @param row 行号
+     * @param failReasons 失败原因列表
+     */
+    private void validateExcelData(UserYearScoreExcelDTO dto, int row, List<String> failReasons) {
+        // ① 账号非空
+        if (!StringUtils.hasText(dto.getAccount())) {
+            failReasons.add("第" + row + "行：用户账号不能为空");
+        }
+        // ② 年度非空+4位数字
+        if (!StringUtils.hasText(dto.getYear())) {
+            failReasons.add("第" + row + "行：年度不能为空");
+        } else if (!dto.getYear().matches("^\\d{4}$")) {
+            failReasons.add("第" + row + "行：年度格式错误，需为4位数字（如2024）");
+        }
+        // ③ 分数非空+非负
+        if (dto.getScore() == null) {
+            failReasons.add("第" + row + "行：分数不能为空");
+        } else if (dto.getScore().compareTo(BigDecimal.ZERO) < 0) {
+            failReasons.add("第" + row + "行：分数不能为负数，当前值：" + dto.getScore());
+        }
+    }
+
 }

@@ -12,14 +12,15 @@
     <artifactId>springboot3_study</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot3_study</name>
-    <description>springboot3_study - 连接PG数据库+分页查询接口</description>
+    <description>springboot3_study</description>
 
     <properties>
         <java.version>21</java.version>
+        <easyexcel.version>3.3.2</easyexcel.version>
     </properties>
 
     <dependencies>
-        <!-- 核心Web依赖 -->
+        <!-- 核心Web依赖（已包含文件上传能力） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -45,6 +46,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- ========== 新增：EasyExcel依赖（Excel解析） ========== -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
+        </dependency>
+
         <!-- 通用测试依赖（替换webmvc-test） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -58,7 +66,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!-- 适配lombok的打包配置（可选） -->
+                <!-- 适配lombok的打包配置 -->
                 <configuration>
                     <excludes>
                         <exclude>

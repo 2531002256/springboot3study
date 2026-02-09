@@ -8,7 +8,7 @@ import szy.dto.YearScoreDTO;
 import szy.entity.UserYearScore;
 
 import java.util.List;
-
+import java.util.Optional;
 public interface UserYearScoreRepository extends JpaRepository<UserYearScore, Integer> {
 
     // 原有：按年份统计每个部门的总分数
@@ -39,4 +39,10 @@ public interface UserYearScoreRepository extends JpaRepository<UserYearScore, In
     List<YearScoreDTO> findDeptYearlyScore(@Param("deptId") Integer deptId,
                                            @Param("startYear") String startYear,
                                            @Param("endYear") String endYear);
+
+
+    /**
+     * 根据用户ID+年度查询是否存在记录（判断重复）
+     */
+    Optional<UserYearScore> findByUserIdAndYear(Integer userId, String year);
 }

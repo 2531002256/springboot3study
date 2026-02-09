@@ -10,14 +10,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId; // 用户ID（主键）
+    private Integer userId;
 
-    @Column(name = "account")
-    private String account; // 账号
+    // 新增unique = true，标注账号唯一
+    @Column(name = "account", unique = true, nullable = false)
+    private String account;
 
     @Column(name = "name")
-    private String name; // 用户名
+    private String name;
 
     @Column(name = "dept_id")
-    private Integer deptId; // 部门ID
+    private Integer deptId;
 }
