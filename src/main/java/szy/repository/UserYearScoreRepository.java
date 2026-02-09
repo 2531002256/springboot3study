@@ -4,16 +4,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import szy.dto.DeptTotalScoreDTO;
+import szy.dto.YearScoreDTO;
 import szy.entity.UserYearScore;
 
 import java.util.List;
 
 public interface UserYearScoreRepository extends JpaRepository<UserYearScore, Integer> {
 
-    /**
-     * 按年份统计每个部门的总分数
-     * JPQL关联查询：UserYearScore → User → Dept，按部门分组求和
-     */
+    // 原有：按年份统计每个部门的总分数
     @Query("SELECT new szy.dto.DeptTotalScoreDTO(" +
             "d.deptId, d.deptName, SUM(ys.score)) " +
             "FROM UserYearScore ys " +
@@ -22,4 +20,23 @@ public interface UserYearScoreRepository extends JpaRepository<UserYearScore, In
             "WHERE ys.year = :year " +
             "GROUP BY d.deptId, d.deptName")
     List<DeptTotalScoreDTO> findDeptTotalScoreByYear(@Param("year") String year);
+
+    /**
+     * 新增：查询指定部门、指定年份区间内的各年总分
+     * @param deptId 部门ID
+     * @param startYear 开始年份（4位数字，如2021）
+     * @param endYear 结束年份（4位数字，如2025）
+     * @return 该部门在年份区间内有数据的年份+对应总分
+     */
+    @Query("SELECT new szy.dto.YearScoreDTO(" +
+            "ys.year, SUM(ys.score)) " +
+            "FROM UserYearScore ys " +
+            "LEFT JOIN User u ON ys.userId = u.userId " +
+            "WHERE u.deptId = :deptId " +
+            "AND ys.year BETWEEN :startYear AND :endYear " +
+            "GROUP BY ys.year " +
+            "ORDER BY ys.year ASC")
+    List<YearScoreDTO> findDeptYearlyScore(@Param("deptId") Integer deptId,
+                                           @Param("startYear") String startYear,
+                                           @Param("endYear") String endYear);
 }
