@@ -24,3 +24,8 @@ pageNum 表示当前请求的页码，pageSize 表示每页返回的记录条数
 **http://localhost:8080/userYearScores/4**
 上
 
+## 根据指定的年份，统计每个部门的总分数
+**http://localhost:8080/userYearScores/statistics/dept?year=2000**
+查询指定年份的各部门总分数
+
+
