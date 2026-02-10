@@ -40,4 +40,8 @@ excel包含列：用户账号、年度、分数 这三列。对重复导入数�
 ## 10.添加日志配置，在resources目录下添加logback-spring.xml并添加日志输出规则，关注controller和service
 
 ## 11.打包并完成运行
-
+##### a.在项目终端输入 mvn clean package 
+<img width="778" height="318" alt="image" src="https://github.com/user-attachments/assets/90639e2d-4ed8-4cce-8f47-49f28552427e" />
+##### b.在项目target目录下能看到生成的.jar文件（打包完成） 
+<img width="1660" height="713" alt="img" src="https://github.com/user-attachments/assets/0ba709d4-901e-4dda-b6b2-c54536a393cd" />
+##### c.打开操作系统运行窗口，切换到target目录输入 java -jar 项目名.jar
