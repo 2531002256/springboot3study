@@ -37,4 +37,7 @@ pageNum 表示当前请求的页码，pageSize 表示每页返回的记录条数
 <img width="1089" height="719" alt="image" src="https://github.com/user-attachments/assets/f2fad01d-860f-439e-af75-867f59786a6b" />
 excel包含列：用户账号、年度、分数 这三列。对重复导入数据即同一个用户同年不能有多条重复记录。
 
-## 10.添加日志配置，在resources目录下添加logback-spring.xml
+## 10.添加日志配置，在resources目录下添加logback-spring.xml并添加日志输出规则，关注controller和service
+
+## 11.打包并完成运行
+
