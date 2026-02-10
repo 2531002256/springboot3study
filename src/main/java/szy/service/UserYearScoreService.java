@@ -3,6 +3,8 @@ package szy.service;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.PageReadListener;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;  // 新增：导入SLF4J Logger
+import org.slf4j.LoggerFactory;  // 新增：导入LoggerFactory
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,30 +27,83 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 @RequiredArgsConstructor
 public class UserYearScoreService {
+    // 新增：定义Logger实例（绑定当前类，方便定位日志来源）
+    private static final Logger log = LoggerFactory.getLogger(UserYearScoreService.class);
+
     private final UserYearScoreRepository userYearScoreRepository;
     private final UserRepository userRepository;
 
     // 分页查询
     public Page<UserYearScore> getUserYearScorePage(Integer pageNum, Integer pageSize) {
-        PageRequest pageRequest = PageRequest.of(pageNum, pageSize);
-        return userYearScoreRepository.findAll(pageRequest);
+        // 新增：INFO级别记录入参
+        log.info("开始处理用户年度分数分页查询，页码：{}，每页条数：{}", pageNum, pageSize);
+        try {
+            // 新增：DEBUG级别记录核心步骤
+            log.debug("封装用户年度分数分页条件：PageRequest.of({}, {})", pageNum, pageSize);
+            PageRequest pageRequest = PageRequest.of(pageNum, pageSize);
+            Page<UserYearScore> userYearScorePage = userYearScoreRepository.findAll(pageRequest);
+
+            // 新增：INFO级别记录出参
+            log.info("用户年度分数分页查询完成，总条数：{}，总页数：{}",
+                    userYearScorePage.getTotalElements(), userYearScorePage.getTotalPages());
+            return userYearScorePage;
+        } catch (Exception e) {
+            // 新增：ERROR级别记录异常（保留堆栈）
+            log.error("用户年度分数分页查询失败，页码：{}，每页条数：{}", pageNum, pageSize, e);
+            throw e;
+        }
     }
 
     //根据ID查询单个用户年度分数
     public Optional<UserYearScore> getUserYearScoreById(Integer id) {
+        // 新增：INFO级别记录入参
+        log.info("开始处理单个用户年度分数查询，分数ID：{}", id);
+        try {
+            Optional<UserYearScore> scoreOptional = userYearScoreRepository.findById(id);
 
-        return userYearScoreRepository.findById(id);
+            // 新增：根据查询结果记录不同级别日志
+            if (scoreOptional.isPresent()) {
+                UserYearScore score = scoreOptional.get();
+                // DEBUG级别：记录查询成功的详情（开发调试用）
+                log.debug("分数ID：{} 查询成功，用户ID：{}，年份：{}，分数：{}",
+                        id, score.getUserId(), score.getYear(), score.getScore());
+            } else {
+                // WARN级别：记录业务级失败
+                log.warn("分数ID：{} 查询失败，原因：该分数ID不存在", id);
+            }
+            return scoreOptional;
+        } catch (Exception e) {
+            // 新增：ERROR级别记录异常
+            log.error("单个用户年度分数查询失败，分数ID：{}", id, e);
+            throw e;
+        }
     }
 
     // 查询特定年份的各部门总分数
     public List<DeptTotalScoreDTO> getDeptTotalScoreByYear(String year) {
+        // 新增：INFO级别记录入参
+        log.info("开始处理按年份统计部门总分请求，统计年份：{}", year);
+
+        // 1. 参数校验（新增日志）
         if (!StringUtils.hasText(year)) {
+            log.warn("按年份统计部门总分失败：年份参数为空");
             throw new IllegalArgumentException("年份不能为空");
         }
         if (!year.matches("^\\d{4}$")) {
+            log.warn("按年份统计部门总分失败：年份格式错误，当前值：{}（需为4位数字）", year);
             throw new IllegalArgumentException("年份格式错误，需为4位数字（如2024）");
         }
-        return userYearScoreRepository.findDeptTotalScoreByYear(year);
+
+        try {
+            List<DeptTotalScoreDTO> result = userYearScoreRepository.findDeptTotalScoreByYear(year);
+            // 新增：INFO级别记录出参
+            log.info("按年份{}统计部门总分完成，共统计到{}个部门的总分数据", year, result.size());
+            return result;
+        } catch (Exception e) {
+            // 新增：ERROR级别记录异常
+            log.error("按年份{}统计部门总分失败", year, e);
+            throw e;
+        }
     }
 
     /**
@@ -60,47 +115,68 @@ public class UserYearScoreService {
      * @throws IllegalArgumentException 参数不合法时抛出
      */
     public List<YearScoreDTO> getDeptYearlyScoreByRange(Integer deptId, String startYear, String endYear) {
-        // 1. 核心参数校验
-        if (deptId == null || deptId <= 0) {
-            throw new IllegalArgumentException("部门ID不能为空且必须为正整数");
-        }
-        if (!StringUtils.hasText(startYear) || !startYear.matches("^\\d{4}$")) {
-            throw new IllegalArgumentException("开始年份不能为空且需为4位数字（如2021）");
-        }
-        if (!StringUtils.hasText(endYear) || !endYear.matches("^\\d{4}$")) {
-            throw new IllegalArgumentException("结束年份不能为空且需为4位数字（如2025）");
-        }
+        // 新增：INFO级别记录入参（核心业务参数）
+        log.info("开始处理部门历年总分统计请求，部门ID：{}，统计年份范围：{} - {}", deptId, startYear, endYear);
 
-        // 2. 转换年份为整数，校验开始年份≤结束年份
-        int start = Integer.parseInt(startYear);
-        int end = Integer.parseInt(endYear);
-        if (start > end) {
-            throw new IllegalArgumentException("开始年份不能大于结束年份");
+        try {
+            // 1. 核心参数校验（新增日志）
+            if (deptId == null || deptId <= 0) {
+                log.warn("部门历年总分统计失败：部门ID不合法，当前值：{}（需为正整数）", deptId);
+                throw new IllegalArgumentException("部门ID不能为空且必须为正整数");
+            }
+            if (!StringUtils.hasText(startYear) || !startYear.matches("^\\d{4}$")) {
+                log.warn("部门历年总分统计失败：开始年份不合法，当前值：{}（需为4位数字）", startYear);
+                throw new IllegalArgumentException("开始年份不能为空且需为4位数字（如2021）");
+            }
+            if (!StringUtils.hasText(endYear) || !endYear.matches("^\\d{4}$")) {
+                log.warn("部门历年总分统计失败：结束年份不合法，当前值：{}（需为4位数字）", endYear);
+                throw new IllegalArgumentException("结束年份不能为空且需为4位数字（如2025）");
+            }
+
+            // 2. 转换年份为整数，校验开始年份≤结束年份（新增日志）
+            int start = Integer.parseInt(startYear);
+            int end = Integer.parseInt(endYear);
+            if (start > end) {
+                log.warn("部门历年总分统计失败：开始年份大于结束年份，开始年份：{}，结束年份：{}", startYear, endYear);
+                throw new IllegalArgumentException("开始年份不能大于结束年份");
+            }
+
+            // 3. 生成start到end的连续年份列表（新增DEBUG日志）
+            List<String> allYears = new ArrayList<>();
+            for (int year = start; year <= end; year++) {
+                allYears.add(String.valueOf(year));
+            }
+            log.debug("部门ID{}：生成连续年份列表完成，年份范围{} - {}，共{}个年份",
+                    deptId, startYear, endYear, allYears.size());
+
+            // 4. 查询数据库中该部门在年份区间内的有数据的年份总分（新增日志）
+            List<YearScoreDTO> dbScores = userYearScoreRepository.findDeptYearlyScore(deptId, startYear, endYear);
+            log.debug("部门ID{}：查询数据库获取有数据的年份总分，共{}条记录", deptId, dbScores.size());
+
+            // 5. 将数据库结果转为Map（年份→总分），方便快速匹配
+            Map<String, BigDecimal> yearScoreMap = new HashMap<>();
+            for (YearScoreDTO dto : dbScores) {
+                yearScoreMap.put(dto.getYear(), dto.getTotalScore() == null ? BigDecimal.ZERO : dto.getTotalScore());
+            }
+
+            // 6. 补全无数据年份，分数设为0（新增日志）
+            List<YearScoreDTO> result = new ArrayList<>();
+            for (String year : allYears) {
+                BigDecimal score = yearScoreMap.getOrDefault(year, BigDecimal.ZERO);
+                result.add(new YearScoreDTO(year, score));
+            }
+            log.info("部门ID{}：历年总分统计完成，补全后共{}个年份数据（{} - {}）",
+                    deptId, result.size(), startYear, endYear);
+
+            return result;
+        } catch (IllegalArgumentException e) {
+            // 业务参数异常，已记录WARN，直接抛出
+            throw e;
+        } catch (Exception e) {
+            // 系统异常，记录ERROR
+            log.error("部门ID{}历年总分统计异常，年份范围：{} - {}", deptId, startYear, endYear, e);
+            throw e;
         }
-
-        // 3. 生成start到end的连续年份列表（如2021~2025 → ["2021","2022","2023","2024","2025"]）
-        List<String> allYears = new ArrayList<>();
-        for (int year = start; year <= end; year++) {
-            allYears.add(String.valueOf(year));
-        }
-
-        // 4. 查询数据库中该部门在年份区间内的有数据的年份总分
-        List<YearScoreDTO> dbScores = userYearScoreRepository.findDeptYearlyScore(deptId, startYear, endYear);
-
-        // 5. 将数据库结果转为Map（年份→总分），方便快速匹配
-        Map<String, BigDecimal> yearScoreMap = new HashMap<>();
-        for (YearScoreDTO dto : dbScores) {
-            yearScoreMap.put(dto.getYear(), dto.getTotalScore() == null ? BigDecimal.ZERO : dto.getTotalScore());
-        }
-
-        // 6. 补全无数据年份，分数设为0
-        List<YearScoreDTO> result = new ArrayList<>();
-        for (String year : allYears) {
-            BigDecimal score = yearScoreMap.getOrDefault(year, BigDecimal.ZERO);
-            result.add(new YearScoreDTO(year, score));
-        }
-
-        return result;
     }
 
     /**
@@ -109,12 +185,18 @@ public class UserYearScoreService {
      * @return 导入结果（成功/失败条数、失败原因）
      */
     public ImportResultDTO importUserYearScore(MultipartFile file) {
-        // 1. 校验文件
+        // 新增：INFO级别记录入参（文件名、文件大小）
+        String fileName = file != null ? file.getOriginalFilename() : "空文件";
+        long fileSizeKb = file != null ? file.getSize() / 1024 : 0;
+        log.info("开始处理Excel导入用户年度分数请求，文件名：{}，文件大小：{}KB", fileName, fileSizeKb);
+
+        // 1. 校验文件（新增日志）
         if (file == null || file.isEmpty()) {
+            log.warn("Excel导入用户年度分数失败：上传的文件为空");
             throw new IllegalArgumentException("上传的Excel文件不能为空");
         }
-        String fileName = file.getOriginalFilename();
         if (fileName == null || (!fileName.endsWith(".xlsx") && !fileName.endsWith(".xls"))) {
+            log.warn("Excel导入用户年度分数失败：文件格式不支持，文件名：{}（仅支持.xlsx/.xls）", fileName);
             throw new IllegalArgumentException("仅支持.xlsx/.xls格式的Excel文件");
         }
 
@@ -124,50 +206,65 @@ public class UserYearScoreService {
         AtomicInteger rowNum = new AtomicInteger(1); // Excel行号（从1开始，表头行）
 
         try {
-            // 3. EasyExcel解析Excel（PageReadListener：分页读取，避免内存溢出）
+            // 3. EasyExcel解析Excel（PageReadListener：分页读取，避免内存溢出）（新增DEBUG日志）
+            log.debug("开始解析Excel文件：{}，使用PageReadListener分页读取", fileName);
             EasyExcel.read(file.getInputStream(), UserYearScoreExcelDTO.class, new PageReadListener<UserYearScoreExcelDTO>(dataList -> {
+                log.debug("解析Excel文件{}：读取到一页数据，共{}条记录", fileName, dataList.size());
                 for (UserYearScoreExcelDTO dto : dataList) {
                     rowNum.incrementAndGet(); // 行号+1（跳过表头，从数据行开始）
                     try {
                         // 4. 单条数据校验
                         validateExcelData(dto, rowNum.get(), failReasons);
-                        // 5. 关联用户：根据账号查userId
+                        // 5. 关联用户：根据账号查userId（新增DEBUG日志）
+                        log.debug("解析Excel第{}行：开始匹配用户账号{}", rowNum.get(), dto.getAccount());
                         Optional<User> userOptional = userRepository.findByAccount(dto.getAccount());
                         if (userOptional.isEmpty()) {
+                            log.warn("解析Excel第{}行失败：用户账号[{}]不存在", rowNum.get(), dto.getAccount());
                             failReasons.add("第" + rowNum.get() + "行：用户账号[" + dto.getAccount() + "]不存在");
                             continue;
                         }
                         Integer userId = userOptional.get().getUserId();
 
-                        // 6. 校验重复：同一用户+年度不能重复
+                        // 6. 校验重复：同一用户+年度不能重复（新增DEBUG/WARN日志）
+                        log.debug("解析Excel第{}行：校验用户ID{} {}年度数据是否重复", rowNum.get(), userId, dto.getYear());
                         Optional<UserYearScore> existScore = userYearScoreRepository.findByUserIdAndYear(userId, dto.getYear());
                         if (existScore.isPresent()) {
+                            log.warn("解析Excel第{}行失败：用户账号[{}]{}年度数据已存在", rowNum.get(), dto.getAccount(), dto.getYear());
                             failReasons.add("第" + rowNum.get() + "行：用户账号[" + dto.getAccount() + "]" + dto.getYear() + "年度数据已存在，无法重复导入");
                             continue;
                         }
 
-                        // 7. 封装数据并保存
+                        // 7. 封装数据并保存（新增DEBUG日志）
                         UserYearScore score = new UserYearScore();
                         score.setUserId(userId);
                         score.setYear(dto.getYear());
                         score.setScore(dto.getScore());
                         userYearScoreRepository.save(score);
+                        log.debug("解析Excel第{}行成功：用户账号[{}]{}年度分数{}已保存",
+                                rowNum.get(), dto.getAccount(), dto.getYear(), dto.getScore());
 
                         successCount.incrementAndGet(); // 成功条数+1
                     } catch (Exception e) {
+                        log.error("解析Excel第{}行异常：{}", rowNum.get(), e.getMessage(), e);
                         failReasons.add("第" + rowNum.get() + "行：导入失败，原因：" + e.getMessage());
                     }
                 }
             })).sheet().doRead(); // 读取第一个sheet
 
-            // 8. 封装导入结果
+            // 8. 封装导入结果（新增INFO日志）
+            log.info("Excel导入用户年度分数处理完成，文件名：{}，成功条数：{}，失败条数：{}",
+                    fileName, successCount.get(), failReasons.size());
             return new ImportResultDTO(
                     successCount.get(),
                     failReasons.size(),
                     failReasons
             );
         } catch (IOException e) {
+            log.error("解析Excel文件失败：文件名{}，IO异常原因：{}", fileName, e.getMessage(), e);
             throw new RuntimeException("解析Excel文件失败：" + e.getMessage());
+        } catch (Exception e) {
+            log.error("Excel导入用户年度分数全局异常：文件名{}", fileName, e);
+            throw e;
         }
     }
 
@@ -178,20 +275,28 @@ public class UserYearScoreService {
      * @param failReasons 失败原因列表
      */
     private void validateExcelData(UserYearScoreExcelDTO dto, int row, List<String> failReasons) {
+        // 新增：DEBUG级别记录校验开始
+        log.debug("开始校验Excel第{}行数据：账号={}，年份={}，分数={}", row, dto.getAccount(), dto.getYear(), dto.getScore());
+
         // ① 账号非空
         if (!StringUtils.hasText(dto.getAccount())) {
+            log.warn("Excel第{}行校验失败：用户账号为空", row);
             failReasons.add("第" + row + "行：用户账号不能为空");
         }
         // ② 年度非空+4位数字
         if (!StringUtils.hasText(dto.getYear())) {
+            log.warn("Excel第{}行校验失败：年度为空", row);
             failReasons.add("第" + row + "行：年度不能为空");
         } else if (!dto.getYear().matches("^\\d{4}$")) {
+            log.warn("Excel第{}行校验失败：年度格式错误，当前值：{}", row, dto.getYear());
             failReasons.add("第" + row + "行：年度格式错误，需为4位数字（如2024）");
         }
         // ③ 分数非空+非负
         if (dto.getScore() == null) {
+            log.warn("Excel第{}行校验失败：分数为空", row);
             failReasons.add("第" + row + "行：分数不能为空");
         } else if (dto.getScore().compareTo(BigDecimal.ZERO) < 0) {
+            log.warn("Excel第{}行校验失败：分数为负数，当前值：{}", row, dto.getScore());
             failReasons.add("第" + row + "行：分数不能为负数，当前值：" + dto.getScore());
         }
     }
