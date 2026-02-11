@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="szy.mapper.UserYearScoreMapper">
+
+    <resultMap id="BaseResultMap" type="szy.entity.UserYearScore">
+        <id column="id" property="id"/>
+        <result column="year" property="year"/>
+        <result column="user_id" property="userId"/>
+        <result column="score" property="score"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT id, year, user_id, score FROM user_year_score
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT id, year, user_id, score FROM user_year_score WHERE id = #{id}
+    </select>
+
+    <select id="selectDeptTotalScoreByYear" resultType="szy.dto.DeptTotalScoreDTO">
+        SELECT
+            d.dept_id AS deptId,
+            d.dept_name AS deptName,
+            SUM(ys.score) AS totalScore
+        FROM user_year_score ys
+                 LEFT JOIN "user" u ON ys.user_id = u.user_id
+                 LEFT JOIN dept d ON u.dept_id = d.dept_id
+        WHERE ys.year = #{year}
+        GROUP BY d.dept_id, d.dept_name
+    </select>
+
+    <select id="selectDeptYearlyScore" resultType="szy.dto.YearScoreDTO">
+        SELECT
+            ys.year AS year,
+            SUM(ys.score) AS totalScore
+        FROM user_year_score ys
+            LEFT JOIN "user" u ON ys.user_id = u.user_id
+        WHERE u.deptId = #{deptId}
+          AND ys.year BETWEEN #{startYear} AND #{endYear}
+        GROUP BY ys.year
+        ORDER BY ys.year
+    </select>
+
+    <select id="selectByUserIdAndYear" resultMap="BaseResultMap">
+        SELECT id, year, user_id, score
+        FROM user_year_score
+        WHERE user_id = #{userId} AND year = #{year}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_year_score(year, user_id, score)
+        VALUES (#{year}, #{userId}, #{score})
+    </insert>
+
+</mapper>

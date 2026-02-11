@@ -1,32 +1,311 @@
-2026-02-10 20:34:57.104 [main] INFO  szy.ApplicationTests - Starting ApplicationTests using Java 21.0.9 with PID 10556 (started by 25310 in D:\Project_Code\springboot3_study)
-2026-02-10 20:34:57.118 [main] DEBUG szy.ApplicationTests - Running with Spring Boot v4.0.2, Spring v7.0.3
-2026-02-10 20:34:57.121 [main] INFO  szy.ApplicationTests - No active profile set, falling back to 1 default profile: "default"
-2026-02-10 20:34:58.516 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-02-10 20:34:58.642 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 103 ms. Found 3 JPA repository interfaces.
-2026-02-10 20:34:59.519 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-02-10 20:34:59.668 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
-2026-02-10 20:35:01.033 [main] INFO  o.s.o.j.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-02-10 20:35:01.121 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-02-10 20:35:01.710 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6669cba
-2026-02-10 20:35:01.714 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-02-10 20:35:01.804 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2026-02-10 20:35:01.871 [main] INFO  org.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [jdbc:postgresql://localhost:5432/springboot3study?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai]
-	Database driver: PostgreSQL JDBC Driver
-	Database dialect: PostgreSQLDialect
-	Database version: 15.13
-	Default catalog/schema: springboot3study/public
-	Autocommit mode: undefined/unknown
-	Isolation level: READ_COMMITTED [default READ_COMMITTED]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-02-10 20:35:03.740 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-10 20:35:03.870 [main] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-02-10 20:35:04.071 [main] INFO  o.s.d.jpa.repository.query.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-02-10 20:35:06.520 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-02-10 20:35:07.415 [main] INFO  szy.ApplicationTests - Started ApplicationTests in 11.009 seconds (process running for 13.275)
-2026-02-10 20:35:11.512 [SpringApplicationShutdownHook] INFO  o.s.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-02-10 20:35:11.517 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-02-10 20:35:11.529 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-11 12:02:47.590 [main] INFO  szy.Springboot3StudyApplication - Starting Springboot3StudyApplication using Java 21.0.9 with PID 12220 (D:\Project_Code\springboot3_study\target\classes started by 25310 in D:\Project_Code\springboot3_study)
+2026-02-11 12:02:47.595 [main] DEBUG szy.Springboot3StudyApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-11 12:02:47.597 [main] INFO  szy.Springboot3StudyApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-11 12:02:48.849 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - Skipping MapperFactoryBean with name 'deptMapper' and 'szy.mapper.DeptMapper' mapperInterface. Bean already defined with the same name!
+2026-02-11 12:02:48.850 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - Skipping MapperFactoryBean with name 'userMapper' and 'szy.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2026-02-11 12:02:48.850 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - Skipping MapperFactoryBean with name 'userYearScoreMapper' and 'szy.mapper.UserYearScoreMapper' mapperInterface. Bean already defined with the same name!
+2026-02-11 12:02:48.852 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[szy.mapper]' package. Please check your configuration.
+2026-02-11 12:02:49.833 [main] INFO  org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-11 12:02:49.865 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-02-11 12:02:49.869 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-11 12:02:49.869 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-11 12:02:50.000 [main] INFO  o.s.b.w.c.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2293 ms
+2026-02-11 12:02:51.209 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-02-11 12:02:51.258 [main] INFO  org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-11 12:02:51.271 [main] INFO  szy.Springboot3StudyApplication - Started Springboot3StudyApplication in 5.221 seconds (process running for 6.959)
+2026-02-11 12:03:01.802 [http-nio-8080-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-11 12:03:01.802 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-11 12:03:01.805 [http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-02-11 12:03:01.875 [http-nio-8080-exec-1] INFO  szy.service.UserYearScoreService - 开始处理用户年度分数分页查询，页码：1，每页条数：3
+2026-02-11 12:03:01.881 [http-nio-8080-exec-1] ERROR szy.service.UserYearScoreService - 用户年度分数分页查询失败，页码：1，每页条数：3
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): szy.mapper.UserYearScoreMapper.selectAll
+	at org.apache.ibatis.binding.MapperMethod$SqlCommand.<init>(MapperMethod.java:229)
+	at org.apache.ibatis.binding.MapperMethod.<init>(MapperMethod.java:53)
+	at org.apache.ibatis.binding.MapperProxy.lambda$cachedInvoker$0(MapperProxy.java:96)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at org.apache.ibatis.util.MapUtil.computeIfAbsent(MapUtil.java:36)
+	at org.apache.ibatis.binding.MapperProxy.cachedInvoker(MapperProxy.java:94)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy71.selectAll(Unknown Source)
+	at szy.service.UserYearScoreService.getUserYearScorePage(UserYearScoreService.java:57)
+	at szy.controller.UserYearScoreController.page(UserYearScoreController.java:30)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1778)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-11 12:03:01.895 [http-nio-8080-exec-1] ERROR o.a.c.c.C.[.[localhost].[/].[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): szy.mapper.UserYearScoreMapper.selectAll] with root cause
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): szy.mapper.UserYearScoreMapper.selectAll
+	at org.apache.ibatis.binding.MapperMethod$SqlCommand.<init>(MapperMethod.java:229)
+	at org.apache.ibatis.binding.MapperMethod.<init>(MapperMethod.java:53)
+	at org.apache.ibatis.binding.MapperProxy.lambda$cachedInvoker$0(MapperProxy.java:96)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at org.apache.ibatis.util.MapUtil.computeIfAbsent(MapUtil.java:36)
+	at org.apache.ibatis.binding.MapperProxy.cachedInvoker(MapperProxy.java:94)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy71.selectAll(Unknown Source)
+	at szy.service.UserYearScoreService.getUserYearScorePage(UserYearScoreService.java:57)
+	at szy.controller.UserYearScoreController.page(UserYearScoreController.java:30)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:190)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1003)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1778)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-11 12:07:06.286 [SpringApplicationShutdownHook] INFO  org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-11 12:07:06.315 [tomcat-shutdown] INFO  org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-11 12:07:11.890 [main] INFO  szy.Springboot3StudyApplication - Starting Springboot3StudyApplication using Java 21.0.9 with PID 8096 (D:\Project_Code\springboot3_study\target\classes started by 25310 in D:\Project_Code\springboot3_study)
+2026-02-11 12:07:11.894 [main] DEBUG szy.Springboot3StudyApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-11 12:07:11.895 [main] INFO  szy.Springboot3StudyApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-11 12:07:13.282 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - Skipping MapperFactoryBean with name 'deptMapper' and 'szy.mapper.DeptMapper' mapperInterface. Bean already defined with the same name!
+2026-02-11 12:07:13.283 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - Skipping MapperFactoryBean with name 'userMapper' and 'szy.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2026-02-11 12:07:13.283 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - Skipping MapperFactoryBean with name 'userYearScoreMapper' and 'szy.mapper.UserYearScoreMapper' mapperInterface. Bean already defined with the same name!
+2026-02-11 12:07:13.283 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[szy.mapper]' package. Please check your configuration.
+2026-02-11 12:07:14.001 [main] INFO  org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-11 12:07:14.026 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-02-11 12:07:14.029 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-11 12:07:14.029 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-11 12:07:14.145 [main] INFO  o.s.b.w.c.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2157 ms
+2026-02-11 12:07:15.188 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-02-11 12:07:15.252 [main] INFO  org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-11 12:07:15.264 [main] INFO  szy.Springboot3StudyApplication - Started Springboot3StudyApplication in 4.635 seconds (process running for 6.242)
+2026-02-11 12:07:51.048 [SpringApplicationShutdownHook] INFO  org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-11 12:07:51.067 [tomcat-shutdown] INFO  org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-11 12:07:57.188 [main] INFO  szy.Springboot3StudyApplication - Starting Springboot3StudyApplication using Java 21.0.9 with PID 9276 (D:\Project_Code\springboot3_study\target\classes started by 25310 in D:\Project_Code\springboot3_study)
+2026-02-11 12:07:57.194 [main] DEBUG szy.Springboot3StudyApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-11 12:07:57.195 [main] INFO  szy.Springboot3StudyApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-11 12:07:58.948 [main] INFO  org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-11 12:07:58.988 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-02-11 12:07:58.993 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-11 12:07:58.994 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-11 12:07:59.177 [main] INFO  o.s.b.w.c.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1893 ms
+2026-02-11 12:07:59.329 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'deptController' defined in file [D:\Project_Code\springboot3_study\target\classes\szy\controller\DeptController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'deptService' defined in file [D:\Project_Code\springboot3_study\target\classes\szy\service\DeptService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'deptMapper' defined in file [D:\Project_Code\springboot3_study\target\classes\szy\mapper\DeptMapper.class]: Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
+2026-02-11 12:07:59.334 [main] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2026-02-11 12:07:59.362 [main] INFO  o.s.b.a.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-11 12:07:59.412 [main] ERROR org.springframework.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'deptController' defined in file [D:\Project_Code\springboot3_study\target\classes\szy\controller\DeptController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'deptService' defined in file [D:\Project_Code\springboot3_study\target\classes\szy\service\DeptService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'deptMapper' defined in file [D:\Project_Code\springboot3_study\target\classes\szy\mapper\DeptMapper.class]: Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1184)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:993)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:620)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at szy.Springboot3StudyApplication.main(Springboot3StudyApplication.java:11)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'deptService' defined in file [D:\Project_Code\springboot3_study\target\classes\szy\service\DeptService.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'deptMapper' defined in file [D:\Project_Code\springboot3_study\target\classes\szy\mapper\DeptMapper.class]: Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1225)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1704)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 21 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'deptMapper' defined in file [D:\Project_Code\springboot3_study\target\classes\szy\mapper\DeptMapper.class]: Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1817)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1225)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1704)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 35 common frames omitted
+Caused by: java.lang.IllegalArgumentException: Property 'sqlSessionFactory' or 'sqlSessionTemplate' are required
+	at org.springframework.util.Assert.notNull(Assert.java:182)
+	at org.mybatis.spring.support.SqlSessionDaoSupport.checkDaoConfig(SqlSessionDaoSupport.java:125)
+	at org.mybatis.spring.mapper.MapperFactoryBean.checkDaoConfig(MapperFactoryBean.java:73)
+	at org.springframework.dao.support.DaoSupport.afterPropertiesSet(DaoSupport.java:46)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+	... 46 common frames omitted
+2026-02-11 12:09:58.258 [main] INFO  szy.Springboot3StudyApplication - Starting Springboot3StudyApplication using Java 21.0.9 with PID 19140 (D:\Project_Code\springboot3_study\target\classes started by 25310 in D:\Project_Code\springboot3_study)
+2026-02-11 12:09:58.263 [main] DEBUG szy.Springboot3StudyApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-11 12:09:58.264 [main] INFO  szy.Springboot3StudyApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-11 12:09:59.629 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - Skipping MapperFactoryBean with name 'deptMapper' and 'szy.mapper.DeptMapper' mapperInterface. Bean already defined with the same name!
+2026-02-11 12:09:59.629 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - Skipping MapperFactoryBean with name 'userMapper' and 'szy.mapper.UserMapper' mapperInterface. Bean already defined with the same name!
+2026-02-11 12:09:59.629 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - Skipping MapperFactoryBean with name 'userYearScoreMapper' and 'szy.mapper.UserYearScoreMapper' mapperInterface. Bean already defined with the same name!
+2026-02-11 12:09:59.630 [main] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[szy.mapper]' package. Please check your configuration.
+2026-02-11 12:10:00.405 [main] INFO  org.springframework.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-11 12:10:00.438 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-02-11 12:10:00.442 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-11 12:10:00.443 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-11 12:10:00.569 [main] INFO  o.s.b.w.c.servlet.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2206 ms
+2026-02-11 12:10:02.038 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-02-11 12:10:02.081 [main] INFO  org.springframework.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-11 12:10:02.097 [main] INFO  szy.Springboot3StudyApplication - Started Springboot3StudyApplication in 5.293 seconds (process running for 6.933)
+2026-02-11 12:10:11.082 [http-nio-8080-exec-2] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-11 12:10:11.082 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-11 12:10:11.084 [http-nio-8080-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-02-11 12:10:11.183 [http-nio-8080-exec-2] INFO  szy.service.UserYearScoreService - 开始处理用户年度分数分页查询，页码：1，每页条数：3
+2026-02-11 12:10:11.354 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-11 12:10:11.917 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@dc8816f
+2026-02-11 12:10:11.922 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-11 12:10:11.945 [http-nio-8080-exec-2] DEBUG szy.mapper.UserYearScoreMapper.selectAll_COUNT - ==>  Preparing: SELECT count(0) FROM user_year_score
+2026-02-11 12:10:12.006 [http-nio-8080-exec-2] DEBUG szy.mapper.UserYearScoreMapper.selectAll_COUNT - ==> Parameters: 
+2026-02-11 12:10:12.048 [http-nio-8080-exec-2] DEBUG szy.mapper.UserYearScoreMapper.selectAll_COUNT - <==      Total: 1
+2026-02-11 12:10:12.062 [http-nio-8080-exec-2] DEBUG szy.mapper.UserYearScoreMapper.selectAll - ==>  Preparing: SELECT id, year, user_id, score FROM user_year_score LIMIT ?
+2026-02-11 12:10:12.067 [http-nio-8080-exec-2] DEBUG szy.mapper.UserYearScoreMapper.selectAll - ==> Parameters: 3(Integer)
+2026-02-11 12:10:12.070 [http-nio-8080-exec-2] DEBUG szy.mapper.UserYearScoreMapper.selectAll - <==      Total: 3
+2026-02-11 12:10:12.074 [http-nio-8080-exec-2] INFO  szy.service.UserYearScoreService - 用户年度分数分页查询完成，总条数：9，总页数：3
+2026-02-11 12:10:17.666 [http-nio-8080-exec-3] INFO  szy.service.UserYearScoreService - 开始处理单个用户年度分数查询，分数ID：1
+2026-02-11 12:10:17.672 [http-nio-8080-exec-3] DEBUG szy.mapper.UserYearScoreMapper.selectById - ==>  Preparing: SELECT id, year, user_id, score FROM user_year_score WHERE id = ?
+2026-02-11 12:10:17.673 [http-nio-8080-exec-3] DEBUG szy.mapper.UserYearScoreMapper.selectById - ==> Parameters: 1(Integer)
+2026-02-11 12:10:17.675 [http-nio-8080-exec-3] DEBUG szy.mapper.UserYearScoreMapper.selectById - <==      Total: 1
+2026-02-11 12:10:17.677 [http-nio-8080-exec-3] DEBUG szy.service.UserYearScoreService - 分数ID：1 查询成功，用户ID：1，年份：2000，分数：100.00
+2026-02-11 12:10:21.301 [http-nio-8080-exec-4] INFO  szy.service.UserYearScoreService - 开始处理按年份统计部门总分请求，统计年份：2000
+2026-02-11 12:10:21.307 [http-nio-8080-exec-4] DEBUG s.m.UserYearScoreMapper.selectDeptTotalScoreByYear - ==>  Preparing: SELECT d.dept_id AS deptId, d.dept_name AS deptName, SUM(ys.score) AS totalScore FROM user_year_score ys LEFT JOIN "user" u ON ys.user_id = u.user_id LEFT JOIN dept d ON u.dept_id = d.dept_id WHERE ys.year = ? GROUP BY d.dept_id, d.dept_name
+2026-02-11 12:10:21.310 [http-nio-8080-exec-4] DEBUG s.m.UserYearScoreMapper.selectDeptTotalScoreByYear - ==> Parameters: 2000(String)
+2026-02-11 12:10:21.334 [http-nio-8080-exec-4] DEBUG s.m.UserYearScoreMapper.selectDeptTotalScoreByYear - <==      Total: 1
+2026-02-11 12:10:21.335 [http-nio-8080-exec-4] INFO  szy.service.UserYearScoreService - 按年份2000统计部门总分完成，共统计到1个部门的总分数据
+2026-02-11 12:10:29.284 [http-nio-8080-exec-5] INFO  szy.service.UserYearScoreService - 开始处理Excel导入用户年度分数请求，文件名：年度分数表.xlsx，文件大小：9KB
+2026-02-11 12:10:29.284 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 开始解析Excel文件：年度分数表.xlsx，使用PageReadListener分页读取
+2026-02-11 12:10:30.418 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 解析Excel文件年度分数表.xlsx：读取到一页数据，共4条记录
+2026-02-11 12:10:30.418 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 开始校验Excel第2行数据：账号=123，年份=2024，分数=95.5
+2026-02-11 12:10:30.418 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 解析Excel第2行：开始匹配用户账号123
+2026-02-11 12:10:30.420 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - ==>  Preparing: SELECT user_id, account, name, dept_id FROM "user" WHERE account = ?
+2026-02-11 12:10:30.421 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - ==> Parameters: 123(String)
+2026-02-11 12:10:30.423 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - <==      Total: 1
+2026-02-11 12:10:30.423 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 解析Excel第2行：校验用户ID1 2024年度数据是否重复
+2026-02-11 12:10:30.424 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - ==>  Preparing: SELECT id, year, user_id, score FROM user_year_score WHERE user_id = ? AND year = ?
+2026-02-11 12:10:30.425 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - ==> Parameters: 1(Integer), 2024(String)
+2026-02-11 12:10:30.427 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - <==      Total: 1
+2026-02-11 12:10:30.427 [http-nio-8080-exec-5] WARN  szy.service.UserYearScoreService - 解析Excel第2行失败：用户账号[123]2024年度数据已存在
+2026-02-11 12:10:30.431 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 开始校验Excel第3行数据：账号=234，年份=2024，分数=88
+2026-02-11 12:10:30.431 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 解析Excel第3行：开始匹配用户账号234
+2026-02-11 12:10:30.432 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - ==>  Preparing: SELECT user_id, account, name, dept_id FROM "user" WHERE account = ?
+2026-02-11 12:10:30.432 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - ==> Parameters: 234(String)
+2026-02-11 12:10:30.434 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - <==      Total: 1
+2026-02-11 12:10:30.435 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 解析Excel第3行：校验用户ID2 2024年度数据是否重复
+2026-02-11 12:10:30.435 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - ==>  Preparing: SELECT id, year, user_id, score FROM user_year_score WHERE user_id = ? AND year = ?
+2026-02-11 12:10:30.435 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - ==> Parameters: 2(Integer), 2024(String)
+2026-02-11 12:10:30.437 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - <==      Total: 1
+2026-02-11 12:10:30.437 [http-nio-8080-exec-5] WARN  szy.service.UserYearScoreService - 解析Excel第3行失败：用户账号[234]2024年度数据已存在
+2026-02-11 12:10:30.438 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 开始校验Excel第4行数据：账号=123，年份=2023，分数=70
+2026-02-11 12:10:30.438 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 解析Excel第4行：开始匹配用户账号123
+2026-02-11 12:10:30.439 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - ==>  Preparing: SELECT user_id, account, name, dept_id FROM "user" WHERE account = ?
+2026-02-11 12:10:30.439 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - ==> Parameters: 123(String)
+2026-02-11 12:10:30.440 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - <==      Total: 1
+2026-02-11 12:10:30.441 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 解析Excel第4行：校验用户ID1 2023年度数据是否重复
+2026-02-11 12:10:30.443 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - ==>  Preparing: SELECT id, year, user_id, score FROM user_year_score WHERE user_id = ? AND year = ?
+2026-02-11 12:10:30.443 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - ==> Parameters: 1(Integer), 2023(String)
+2026-02-11 12:10:30.444 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - <==      Total: 1
+2026-02-11 12:10:30.445 [http-nio-8080-exec-5] WARN  szy.service.UserYearScoreService - 解析Excel第4行失败：用户账号[123]2023年度数据已存在
+2026-02-11 12:10:30.445 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 开始校验Excel第5行数据：账号=123，年份=2023，分数=80
+2026-02-11 12:10:30.445 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 解析Excel第5行：开始匹配用户账号123
+2026-02-11 12:10:30.446 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - ==>  Preparing: SELECT user_id, account, name, dept_id FROM "user" WHERE account = ?
+2026-02-11 12:10:30.446 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - ==> Parameters: 123(String)
+2026-02-11 12:10:30.447 [http-nio-8080-exec-5] DEBUG szy.mapper.UserMapper.selectByAccount - <==      Total: 1
+2026-02-11 12:10:30.448 [http-nio-8080-exec-5] DEBUG szy.service.UserYearScoreService - 解析Excel第5行：校验用户ID1 2023年度数据是否重复
+2026-02-11 12:10:30.448 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - ==>  Preparing: SELECT id, year, user_id, score FROM user_year_score WHERE user_id = ? AND year = ?
+2026-02-11 12:10:30.449 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - ==> Parameters: 1(Integer), 2023(String)
+2026-02-11 12:10:30.450 [http-nio-8080-exec-5] DEBUG s.mapper.UserYearScoreMapper.selectByUserIdAndYear - <==      Total: 1
+2026-02-11 12:10:30.450 [http-nio-8080-exec-5] WARN  szy.service.UserYearScoreService - 解析Excel第5行失败：用户账号[123]2023年度数据已存在
+2026-02-11 12:10:30.454 [http-nio-8080-exec-5] INFO  szy.service.UserYearScoreService - Excel导入用户年度分数处理完成，文件名：年度分数表.xlsx，成功条数：0，失败条数：4
+2026-02-11 12:10:58.072 [SpringApplicationShutdownHook] INFO  org.springframework.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-11 12:10:58.093 [tomcat-shutdown] INFO  org.springframework.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-11 12:10:58.101 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-11 12:10:58.118 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
