@@ -16,7 +16,7 @@ public class DeptController {
     private static final Logger log = LoggerFactory.getLogger(DeptController.class);
     private final DeptService deptService;
 
-    @GetMapping
+    @GetMapping("/pages")
     public Result<PageInfo<Dept>> getDeptPage(
             @RequestParam(defaultValue = "1") Integer pageNum,
             @RequestParam(defaultValue = "10") Integer pageSize
@@ -33,8 +33,8 @@ public class DeptController {
         }
     }
 
-    @GetMapping("/{id}")
-    public Result<Dept> getDeptById(@PathVariable("id") Integer deptId) {
+    @GetMapping("/getById")
+    public Result<Dept> getDeptById(@RequestParam(defaultValue = "1") Integer deptId) {
         log.info("查询部门：{}", deptId);
         try {
             Dept dept = deptService.getDeptById(deptId);
