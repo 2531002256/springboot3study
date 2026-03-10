@@ -22,7 +22,7 @@ public class UserYearScoreController {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final UserYearScoreService userYearScoreService;
 
-    @GetMapping
+    @GetMapping("/userYearScoresPage")
     public Result<PageInfo<UserYearScore>> page(
             @RequestParam(defaultValue = "1") Integer pageNum,
             @RequestParam(defaultValue = "10") Integer pageSize
@@ -31,8 +31,8 @@ public class UserYearScoreController {
         return Result.success(page);
     }
 
-    @GetMapping("/{id}")
-    public Result<UserYearScore> get(@PathVariable Integer id) {
+    @GetMapping("/userYearScoresId")
+    public Result<UserYearScore> get(@RequestParam(defaultValue = "1") Integer id) {
         UserYearScore score = userYearScoreService.getUserYearScoreById(id);
         return score != null ? Result.success(score) : Result.error("不存在");
     }
