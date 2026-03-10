@@ -16,7 +16,7 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 
-    @GetMapping
+    @GetMapping("/userPage")
     public Result<PageInfo<User>> getUserPage(
             @RequestParam(defaultValue = "1") Integer pageNum,
             @RequestParam(defaultValue = "10") Integer pageSize
@@ -32,8 +32,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{id}")
-    public Result<User> getUserById(@PathVariable Integer id) {
+    @GetMapping("/userId")
+    public Result<User> getUserById(@RequestParam(defaultValue = "1") Integer id) {
         log.info("查询用户：{}", id);
         try {
             User user = userService.getUserById(id);
